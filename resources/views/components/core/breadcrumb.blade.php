@@ -8,7 +8,7 @@
 @endphp
 
 <nav aria-label="breadcrumb">
-    <ol style="display: flex; list-style: none; padding: 0; margin: 0; align-items: center; gap: 16px;">
+    <ol style="display: flex; list-style: none; padding: 0; margin: 0; align-items: center; gap: 4px;">
         <li>
             <x-core.link href="{{ url('/admin/dashboard') }}"
                 style="color: #374151; text-decoration: none; font-weight: 500;">Home</x-core.link>

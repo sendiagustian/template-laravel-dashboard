@@ -9,12 +9,14 @@ use Illuminate\View\Component;
 class Link extends Component
 {
     public bool $active;
+    public bool $disabled;
     /**
      * Create a new component instance.
      */
-    public function __construct(bool $active = false)
+    public function __construct(bool $active = false, bool $disabled = false)
     {
         $this->active = $active;
+        $this->disabled = $disabled;
     }
 
     /**

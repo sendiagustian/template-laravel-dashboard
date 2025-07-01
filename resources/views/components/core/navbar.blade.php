@@ -1,6 +1,6 @@
 <div>
     {{-- Top Bar --}}
-    <div class="bg-[#a26c3a] text-white py-2 text-sm">
+    <div class="bg-[var(--color-primary-hover)] text-white py-2 text-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <div class="flex items-center space-x-1">
@@ -13,8 +13,8 @@
                     <span>info@hajjumrahtravel.com</span>
                 </div>
             </div>
-            <x-core.link href="{{ route('dashboard') }}"
-                class="bg-primary hover:bg-primary-hover hover:text-white px-3 py-1 rounded text-xs transition-colors">
+            <x-core.link href="{{ route('admin.dashboard') }}"
+                class="bg-primary hover:bg-[#31a081] hover:text-white px-3 py-1 rounded text-xs transition-colors">
                 Dashboard
             </x-core.link>
         </div>

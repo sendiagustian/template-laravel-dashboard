@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Menu;
+namespace App\Livewire\Admin\Menu;
 
 use App\Models\Menu;
 use Livewire\Component;
@@ -20,7 +20,7 @@ class Index extends Component
                 'parent_id' => $menu->parent_id,
             ];
         })->toArray();
-        return view('pages.menu.index', [
+        return view('pages.admin.menu.index', [
             'menuItems' => $menuItems,
         ]);
     }

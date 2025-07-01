@@ -11,17 +11,17 @@ class Table extends Component
     public array $columns;
     public array $datas;
     public bool $search;
+    // public bool $action;
     public array $filterOptions;
     public string $filterLabel;
-
     public int $currentPage;
     public int $perPage;
     public int $total;
 
-    public function getPaginatedData(): array
+    public function getPaginatedData($datas): array
     {
         $offset = ($this->currentPage - 1) * $this->perPage;
-        return array_slice($this->datas, $offset, $this->perPage);
+        return array_slice($datas, $offset, $this->perPage);
     }
 
     public function __construct(
@@ -30,18 +30,18 @@ class Table extends Component
         bool $search,
         array $filterOptions,
         string $filterLabel,
-        int $currentPage = 1,
-        int $perPage = 10,
-        int $total = 0
+        // bool $action = false,
+        int $perPage = 15
     ) {
         $this->columns = $columns;
-        $this->datas = $datas;
         $this->search = $search;
+        // $this->action = $action;
         $this->filterOptions = $filterOptions;
         $this->filterLabel = $filterLabel;
-        $this->currentPage = $currentPage;
+        $this->currentPage = (int) request()->query('page', 1);
         $this->perPage = $perPage;
-        $this->total = $total;
+        $this->total = $datas ? count($datas) : 0;
+        $this->datas = $datas;
     }
 
     /**

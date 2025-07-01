@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Livewire\Component;
@@ -20,6 +20,6 @@ class Index extends Component
             ];
         })->toArray();
 
-        return view('pages.user.index', ['users' => $users]);
+        return view('pages.admin.user.index', ['users' => $users]);
     }
 }

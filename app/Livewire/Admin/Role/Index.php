@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Role;
+namespace App\Livewire\Admin\Role;
 
 use App\Models\Role;
 use Livewire\Component;
@@ -18,7 +18,7 @@ class Index extends Component
             ];
         })->toArray();
 
-        return view('pages.role.index', [
+        return view('pages.admin.role.index', [
             'roleItems' => $roleItems,
         ]);
     }

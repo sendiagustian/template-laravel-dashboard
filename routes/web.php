@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get("/", \App\Livewire\Welcome::class)->name('welcome');
+Route::get("/", \App\Livewire\Landing\Welcome::class)->name('welcome');
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/admin/dashboard', \App\Livewire\Dashboard\Index::class)->name('dashboard');
-    Route::get('/admin/users', \App\Livewire\User\Index::class)->name('users');
-    Route::get('/admin/menus', \App\Livewire\Menu\Index::class)->name('menus');
-    Route::get('/admin/roles', \App\Livewire\Role\Index::class)->name('roles');
+    Route::get('/admin/dashboard', \App\Livewire\Admin\Dashboard\Index::class)->name('admin.dashboard');
+    Route::get('/admin/profile', \App\Livewire\Admin\Profile::class)->name('admin.profile');
+    Route::get('/admin/users', \App\Livewire\Admin\User\Index::class)->name('admin.users');
+    Route::get('/admin/menus', \App\Livewire\Admin\Menu\Index::class)->name('admin.menus');
+    Route::get('/admin/roles', \App\Livewire\Admin\Role\Index::class)->name('admin.roles');
 });
