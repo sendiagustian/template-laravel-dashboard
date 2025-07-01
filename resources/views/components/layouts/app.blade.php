@@ -30,7 +30,11 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             {{-- DASHBOARD HEADER --}}
             {{-- <x-core.dashboard-header :title="$sectionTitle ?? ''"/> --}}
+            <header class="h-[80px] px-6 py-4 bg-white shadow flex items-center justify-between">
+                <x-core.breadcrumb />
+            </header>
 
+            {{-- MAIN CONTENT --}}
             <main class="flex-1 overflow-x-hidden overflow-y-auto p-6">
                 @if (isset($slot))
                     {{ $slot }}

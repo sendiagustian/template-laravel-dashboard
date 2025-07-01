@@ -16,7 +16,7 @@
         {{ $isOpen ? 'translate-x-0' : '-translate-x-full' }}"
     x-data>
     {{-- Header --}}
-    <div class="flex items-center justify-between p-6 border-b border-gray-200">
+    <div class="max-h-[92px] flex items-center justify-between p-6">
         <div class="flex items-center space-x-2">
             <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <span class="text-white font-bold">H</span>
@@ -26,18 +26,17 @@
                 <p class="text-xs text-gray-600">Management Panel</p>
             </div>
         </div>
-        <button x-on:click="$dispatch('toggle-sidebar')" class="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+        {{-- <button x-on:click="$dispatch('toggle-sidebar')" class="lg:hidden p-2 rounded-lg hover:bg-gray-100"
             type="button">
-            {{-- Replace with your X icon --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-        </button>
+        </button> --}}
     </div>
 
     {{-- Navigation --}}
-    <nav class="flex-1 px-4 py-6 space-y-2">
+    <nav class="flex-1 px-4 py-2 space-y-2">
         @php
             // Group menu items by parent_id and sort by 'order'
             $grouped = collect($menuItems)->sortBy('order')->groupBy('parent_id');
@@ -65,6 +64,7 @@
         @endphp
 
         {{-- Render menu tree --}}
+        <p class="font-medium mb-2">Menu</p>
         @foreach ($menuTree as $item)
             @if (!empty($item['children']))
                 {{-- Parent Menu with Children --}}
@@ -87,12 +87,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
-                    <div x-show="open" class="pl-8 space-y-1 mt-1" x-transition
-                        @php
-$hasActiveChild = collect($item['children'])->contains(function($child) {
-                                return request()->is(ltrim($child['url'], '/'));
-                            }); @endphp
-                        x-init="open = {{ request()->is(ltrim($item['url'], '/')) || $hasActiveChild ? 'true' : 'false' }}">
+                    @php
+                        $hasActiveChild = collect($item['children'])->contains(function ($child) {
+                            return request()->is(ltrim($child['url'], '/'));
+                        });
+                    @endphp
+                    <div x-show="open" class="pl-8 space-y-1 mt-1" x-transition x-init="open = {{ request()->is(ltrim($item['url'], '/')) || $hasActiveChild ? 'true' : 'false' }}">
                         @foreach ($item['children'] as $child)
                             <x-core.link href="{{ $child['url'] }}"
                                 class="cursor-pointer w-full flex items-center space-x-3 px-4 py-2 rounded-lg text-left transition-all

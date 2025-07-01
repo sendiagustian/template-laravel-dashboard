@@ -9,4 +9,6 @@ Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', \App\Livewire\Dashboard\Index::class)->name('dashboard');
     Route::get('/admin/users', \App\Livewire\User\Index::class)->name('users');
+    Route::get('/admin/menus', \App\Livewire\Menu\Index::class)->name('menus');
+    Route::get('/admin/roles', \App\Livewire\Role\Index::class)->name('roles');
 });
