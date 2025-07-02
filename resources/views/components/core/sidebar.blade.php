@@ -73,7 +73,7 @@
                         class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all
                             {{ request()->is(ltrim($item['url'], '/')) ||
                             collect($item['children'])->contains(function ($child) {
-                                return request()->is(ltrim($child['url'], '/'));
+                                return Str::contains(request()->url(), $child['url']);
                             })
                                 ? 'bg-primary/20 text-[var(--color-primary)] border-r-2 border-[var(--color-primary)] font-medium'
                                 : 'text-gray-700 hover:bg-primary/20' }}">
@@ -89,14 +89,14 @@
                     </button>
                     @php
                         $hasActiveChild = collect($item['children'])->contains(function ($child) {
-                            return request()->is(ltrim($child['url'], '/'));
+                            return Str::contains(request()->url(), $child['url']);
                         });
                     @endphp
                     <div x-show="open" class="pl-8 space-y-1 mt-1" x-transition x-init="open = {{ request()->is(ltrim($item['url'], '/')) || $hasActiveChild ? 'true' : 'false' }}">
                         @foreach ($item['children'] as $child)
                             <x-core.link href="{{ $child['url'] }}"
                                 class="cursor-pointer w-full flex items-center space-x-3 px-4 py-2 rounded-lg text-left transition-all
-                                    {{ request()->is(ltrim($child['url'], '/'))
+                                    {{ Str::contains(request()->url(), $child['url'])
                                         ? 'bg-primary/10 text-[var(--color-primary)] font-medium'
                                         : 'text-gray-600 hover:bg-primary/10' }}">
                                 @if (!empty($child['icon']))

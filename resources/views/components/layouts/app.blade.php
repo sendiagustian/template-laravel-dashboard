@@ -30,8 +30,10 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             {{-- DASHBOARD HEADER --}}
             {{-- <x-core.dashboard-header :title="$sectionTitle ?? ''"/> --}}
-            <header class="h-[80px] px-6 py-4 bg-white shadow flex items-center justify-between">
+            <header class="w-full h-[80px] px-6 py-4 bg-white shadow flex items-stretch justify-between">
                 <x-core.breadcrumb />
+                <div wire:loading.class="visible" wire:loading.remove="invisible"
+                    class="invisible animate-spin rounded-full size-8 border-b-2 border-[var(--color-primary)]"></div>
             </header>
 
             {{-- MAIN CONTENT --}}
@@ -47,10 +49,10 @@
 
     {{-- Alert Notification --}}
     @if (session('success') || session('error'))
-        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="fixed top-6 right-6 z-50">
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="fixed top-2.5 right-6 z-50">
             @if (session('success'))
                 <div class="bg-green-500 text-white px-6 py-4 rounded shadow flex items-center space-x-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 8 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     <span>{{ session('success') }}</span>

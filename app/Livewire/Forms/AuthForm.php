@@ -9,16 +9,12 @@ use Livewire\Form;
 
 class AuthForm extends Form
 {
-    public string $email;
-    public string $password;
+    public string $email = '';
 
-    public function checkUser(): User|null
+    public string $password = '';
+
+    public function authenticate(): User|null
     {
-        $this->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
         // Logic for user authentication goes here
         $user = User::where('email', $this->email)->first();
 

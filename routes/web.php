@@ -9,7 +9,12 @@ Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', \App\Livewire\Admin\Dashboard\Index::class)->name('admin.dashboard');
     Route::get('/admin/profile', \App\Livewire\Admin\Profile::class)->name('admin.profile');
+
     Route::get('/admin/users', \App\Livewire\Admin\User\Index::class)->name('admin.users');
+    Route::get('/admin/users/create', \App\Livewire\Admin\User\Create::class)->name('admin.users.create');
+    Route::get('/admin/users/edit', \App\Livewire\Admin\User\Edit::class)->name('admin.users.edit');
+    Route::delete('/admin/users/delete/{id}', [\App\Http\Controllers\Admin\UserController::class, 'delete'])->name('admin.users.delete');
+
     Route::get('/admin/menus', \App\Livewire\Admin\Menu\Index::class)->name('admin.menus');
     Route::get('/admin/roles', \App\Livewire\Admin\Role\Index::class)->name('admin.roles');
 });

@@ -14,6 +14,8 @@ use App\View\Components\Core\Footer;
 use App\View\Components\Core\Sidebar;
 use App\View\Components\Core\Table;
 use App\View\Components\Core\Breadcrumb;
+use App\View\Components\Core\InputField;
+use App\View\Components\Core\InputSelect;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,8 +42,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('core.navbar', Navbar::class);
         Blade::component('core.footer', Footer::class);
         Blade::component('core.sidebar', Sidebar::class);
+        Blade::component('core.breadcrumb', Breadcrumb::class);
+
         Blade::component('core.button', Button::class);
         Blade::component('core.table', Table::class);
-        Blade::component('core.breadcrumb', Breadcrumb::class);
+        Blade::component('core.input-select', InputSelect::class);
+        Blade::component('core.input-field', InputField::class);
     }
 }

@@ -66,6 +66,7 @@ class UserSeeder extends Seeder
                 ['email' => $userData['email']], // Kunci unik untuk mencari
                 [
                     'name' => $userData['name'],
+                    'username' => $userData['username'],
                     'password' => Hash::make($userData['password']),
                 ]
             );

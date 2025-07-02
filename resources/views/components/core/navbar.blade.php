@@ -78,7 +78,7 @@
                         </button>
                     @endforeach
                     <button
-                        class="w-full bg-primary hover:bg-emerald-700 text-white py-2 rounded-lg font-medium transition-colors">
+                        class="w-full bg-primary hover:bg-primary-hover text-white py-2 rounded-lg font-medium transition-colors">
                         Daftar Sekarang
                     </button>
                 </div>

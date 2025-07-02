@@ -12,9 +12,9 @@ class Button extends Component
     public bool $secondary;
     public bool $disabled;
     public string $type;
-    public string $bgColor;
+    public ?string $bgColor;
 
-    public function __construct($primary = false, $secondary = false, $disabled = false, $type = 'button', $bgColor = 'bg-primary')
+    public function __construct($primary = false, $secondary = false, $disabled = false, $type = 'button', $bgColor = null)
     {
         $this->type = $type;
         $this->primary = $primary;

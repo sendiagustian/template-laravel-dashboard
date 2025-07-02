@@ -9,12 +9,13 @@
     <div class="flex items-center justify-between mb-4">
         @if ($search)
             <div class="flex items-center space-x-2">
-                <input type="text" placeholder="Search users..." class="border rounded px-3 py-2 w-96" />
+                <x-core.input-field type="text" name="search" placeholder="Search..." :class="'min-w-[28rem]'" />
             </div>
         @endif
-        @if (count($filterOptions))
+        @if ($filterOptions !== null)
             <div class="relative">
-                <select class="border rounded px-3 py-2 pr-8 appearance-none">
+                <select
+                    class="border border-gray-300 rounded px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition duration-200">
                     <option value="">{{ $filterLabel }}</option>
                     @foreach ($filterOptions as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
@@ -37,31 +38,64 @@
                         {{ $col['label'] ?? $col }}
                     </th>
                 @endforeach
-                {{-- @if ($actions)
-                    <th class="px-6 py-3">Actions</th>
-                @endif --}}
+                @if (count($actions) > 0)
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
+                @endif
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
             @forelse($visibleData as $row)
-                <tr>
+                <tr class="hover:bg-primary/30 transition duration-150 ease-in-out">
+                    {{-- Render each column data --}}
                     @foreach ($columns as $col)
                         <td class="px-6 py-4 whitespace-nowrap">
                             {{ data_get($row, $col['field'] ?? $col) }}
                         </td>
                     @endforeach
-                    {{-- @if ($actions)
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div>
-                                <x-core.link href="{{ route('#', $row['id']) }}"
-                                    class="text-blue-500 hover:underline">Edit</x-core.link>
-                            </div>
-                            <div>
-                                <x-core.link href="{{ route('#', $row['id']) }}"
-                                    class="text-red-500 hover:underline">Delete</x-core.link>
-                            </div>
+                    @if (count($actions) > 0)
+                        {{-- Actions Column --}}
+                        @php
+                            $usernameSession = auth()->user()->username;
+                            if ($isUserTable) {
+                                if ($row['username'] === $usernameSession) {
+                                    $actions = ['edit'];
+                                } else {
+                                    $actions = ['edit', 'delete'];
+                                }
+                            }
+
+                        @endphp
+                        <td class="flex px-6 py-4 whitespace-nowrap">
+                            @if (in_array('edit', $actions))
+                                <div class="flex mr-2 mb-2 items-center justify-center">
+                                    <x-core.link href="{{ request()->url() . '/edit?id=' . $row['id'] }}">
+                                        <x-bi-pencil-square class="w-[25px] h-[25px] text-blue-500" />
+                                    </x-core.link>
+                                </div>
+                            @endif
+                            @if (in_array('delete', $actions))
+                                <div class="flex mr-2 items-center justify-center">
+                                    <form action="{{ request()->url() . '/delete/' . $row['id'] }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="cursor-pointer">
+                                            <x-bi-trash-fill class="w-[25px] h-[25px] text-red-500" />
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                            @if (in_array('view', $actions))
+                                <div class="flex mr-2 mb-2 items-center justify-center">
+                                    <x-core.link href="{{ request()->url() . '/view/' . $row['id'] }}">
+                                        <x-bi-eye-fill class="w-[25px] h-[25px] text-green-500" />
+                                    </x-core.link>
+                                </div>
+                            @endif
                         </td>
-                    @endif --}}
+                    @endif
                 </tr>
             @empty
                 <tr>
