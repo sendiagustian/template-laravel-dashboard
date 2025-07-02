@@ -34,7 +34,15 @@ class RoleMenuSeeder extends Seeder
         if ($adminRole) {
             // Admin mendapatkan semua menu KECUALI 'Manajemen Role'
             $adminMenus = $allMenus->filter(function ($menu) {
-                return $menu->url !== '/admin/roles';
+                return in_array($menu->url, [
+                    '/admin/dashboard',
+                    '/admin/profile',
+                    '/admin/users',
+                    '#content',
+                    '/admin/articles',
+                    '/admin/galleries',
+                    '/admin/packages'
+                ]);
             });
             $adminRole->menus()->sync($adminMenus->pluck('id'));
             $this->command->info('Admin menus assigned.');

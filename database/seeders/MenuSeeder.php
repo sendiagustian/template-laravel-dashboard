@@ -30,7 +30,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'name' => 'Manajemen Sistem',
-                'url' => '#', // URL '#' menandakan ini hanya menu induk
+                'url' => '#sistem', // URL '#' menandakan ini hanya menu induk
                 'icon' => 'bi-database-fill',
                 'order' => 3,
                 'children' => [
@@ -57,7 +57,7 @@ class MenuSeeder extends Seeder
             // Menu Induk: Manajemen Konten
             [
                 'name' => 'Manajemen Konten',
-                'url' => '#',
+                'url' => '#content',
                 'icon' => 'bi-images',
                 'order' => 4,
                 'children' => [

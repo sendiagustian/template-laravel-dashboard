@@ -115,22 +115,22 @@
         @if ($lastPage > 1)
             <div class="flex space-x-2">
                 {{-- Previous --}}
-                <x-core.link href="?page={{ $currentPage - 1 }}" :disabled="$currentPage == 1"
-                    class="px-4 py-2 rounded border text-sm"
-                    onclick="window.location.search = '?page={{ $currentPage - 1 }}'">
+                <x-core.link href="{{ $currentPage > 1 ? '?page=' . ($currentPage - 1) : '' }}" :disabled="$currentPage == 1"
+                    class="px-4 py-2 rounded border text-sm">
                     Previous
                 </x-core.link>
                 {{-- Page Numbers --}}
                 @for ($i = 1; $i <= $lastPage; $i++)
-                    <x-core.link href="?page={{ $i }}" :active="$currentPage == $i" :disabled="$currentPage == $i"
+                    <x-core.link href="{{ $currentPage != $i ? '?page=' . $i : '' }}" :active="$currentPage == $i"
+                        :disabled="$currentPage == $i"
                         class="px-4 py-2 rounded border text-sm {{ $currentPage == $i ? 'bg-primary text-white' : 'bg-white hover:bg-gray-100' }}"
                         onclick="window.location.search = '?page={{ $i }}'">
                         {{ $i }}
                     </x-core.link>
                 @endfor
                 {{-- Next --}}
-                <x-core.link href="?page={{ $currentPage + 1 }}" :disabled="$currentPage == $lastPage"
-                    class="px-4 py-2 rounded border text-sm">
+                <x-core.link href="{{ $currentPage < $lastPage ? '?page=' . ($currentPage + 1) : '' }}"
+                    :disabled="$currentPage == $lastPage" class="px-4 py-2 rounded border text-sm">
                     Next
                 </x-core.link>
             </div>

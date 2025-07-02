@@ -6,32 +6,36 @@ Route::get("/", \App\Livewire\Landing\Welcome::class)->name('welcome');
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth', 'acl:superadmin,admin,editor'])->group(function () {
-    Route::get('/admin/dashboard', \App\Livewire\Admin\Dashboard\Index::class)->name('admin.dashboard');
-});
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', \App\Livewire\Admin\Dashboard\Index::class)
+        ->middleware('acl:superadmin,admin,editor')
+        ->name('dashboard');
 
-Route::middleware(['auth', 'acl:superadmin, admin'])->group(function () {
-    Route::get('/admin/profile', \App\Livewire\Admin\Profile::class)->name('admin.profile');
+    // Dapat diakses oleh: superadmin, admin
+    Route::get('/profile', \App\Livewire\Admin\Profile::class)
+        ->middleware(middleware: 'acl:superadmin,admin')
+        ->name(name: 'profile');
 
-    Route::get('/admin/users', \App\Livewire\Admin\User\Index::class)->name('admin.users');
-    Route::get('/admin/users/create', \App\Livewire\Admin\User\Create::class)->name('admin.users.create');
-    Route::get('/admin/users/edit', \App\Livewire\Admin\User\Edit::class)->name('admin.users.edit');
-    Route::delete('/admin/users/delete/{id}', [\App\Http\Controllers\Admin\UserController::class, 'delete'])->name('admin.users.delete');
+    Route::middleware('acl:superadmin,admin')->group(function () {
+        Route::get('/users', \App\Livewire\Admin\User\Index::class)->name('users');
+        Route::get('/users/create', \App\Livewire\Admin\User\Create::class)->name('users.create');
+        Route::get('/users/edit', \App\Livewire\Admin\User\Edit::class)->name('users.edit');
+        Route::delete('/users/delete/{id}', [\App\Http\Controllers\Admin\UserController::class, 'delete'])->name('users.delete');
+    });
 
-    Route::get('/admin/roles', \App\Livewire\Admin\Role\Index::class)->name('admin.roles');
-    Route::get('/admin/roles/create', \App\Livewire\Admin\Role\Create::class)->name('admin.roles.create');
-    Route::get('/admin/roles/edit', \App\Livewire\Admin\Role\Edit::class)->name('admin.roles.edit');
-    Route::delete('/admin/roles/delete/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'delete'])->name('admin.roles.delete');
+    Route::middleware('acl:superadmin')->group(function () {
+        // Routes untuk Roles
+        Route::get('/roles', \App\Livewire\Admin\Role\Index::class)->name('roles');
+        Route::get('/roles/create', \App\Livewire\Admin\Role\Create::class)->name('roles.create');
+        Route::get('/roles/edit', \App\Livewire\Admin\Role\Edit::class)->name('roles.edit');
+        Route::delete('/roles/delete/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'delete'])->name('roles.delete');
 
-    Route::get('/admin/menus', \App\Livewire\Admin\Menu\Index::class)->name('admin.menus');
-});
-
-Route::middleware(['auth', 'acl:admin'])->group(function () {
-
-});
-
-Route::middleware(['auth', 'acl:editor'])->group(function () {
-
+        // Routes untuk Menus
+        Route::get('/menus', \App\Livewire\Admin\Menu\Index::class)->name('menus');
+        Route::get('/menus/create', \App\Livewire\Admin\Menu\Create::class)->name('menus.create');
+        Route::get('/menus/edit', \App\Livewire\Admin\Menu\Edit::class)->name('menus.edit');
+        Route::delete('/menus/delete/{id}', [\App\Http\Controllers\Admin\MenuController::class, 'delete'])->name('menus.delete');
+    });
 });
 
 Route::middleware(['auth', 'acl:user'])->group(function () {

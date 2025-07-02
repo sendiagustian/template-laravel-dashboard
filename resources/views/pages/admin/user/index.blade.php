@@ -16,12 +16,13 @@
         </div>
     </div>
 
-    <x-core.table :columns="[
+    <x-core.table :perPage="10" :columns="[
         ['field' => 'id', 'label' => 'ID'],
         ['field' => 'username', 'label' => 'Username'],
         ['field' => 'role', 'label' => 'Role'],
         ['field' => 'name', 'label' => 'Name'],
         ['field' => 'email', 'label' => 'Email'],
-    ]" :datas="$users" :search="true" :actions="['edit', 'delete']" :isUserTable="true" />
+    ]" :datas="$users" :search="true" :actions="['edit', 'delete']"
+        :isUserTable="true" />
 
 </div>

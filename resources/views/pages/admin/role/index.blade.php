@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <x-core.table :columns="[
+    <x-core.table :perPage="10" :columns="[
         ['field' => 'id', 'label' => 'ID'],
         ['field' => 'name', 'label' => 'Name'],
         ['field' => 'description', 'label' => 'Description'],
