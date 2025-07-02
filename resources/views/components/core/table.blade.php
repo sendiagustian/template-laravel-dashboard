@@ -9,7 +9,7 @@
     <div class="flex items-center justify-between mb-4">
         @if ($search)
             <div class="flex items-center space-x-2">
-                <x-core.input-field type="text" name="search" placeholder="Search..." :class="'min-w-[28rem]'" />
+                <x-core.input-field type="text" name="search" placeholder="Search..." :customClass="'min-w-[28rem]'" />
             </div>
         @endif
         @if ($filterOptions !== null)

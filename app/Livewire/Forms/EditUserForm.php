@@ -11,19 +11,13 @@ class EditUserForm extends Form
     #[Validate('required|min:3')]
     public $name = '';
 
-
     #[Validate('required|exists:roles,id')]
     public $role = null;
 
-    public function update()
+    public function update(User $user)
     {
-
         $this->validate();
-
         try {
-            $id = (int) request()->query('id');
-
-            $user = User::findOrFail($id);
 
             // Update the user details
             $user->update([

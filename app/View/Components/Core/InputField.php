@@ -8,25 +8,23 @@ use Illuminate\View\Component;
 
 class InputField extends Component
 {
-    public string $type;
-    public string $name;
-    public ?string $id;
-    public ?string $label;
-    public string $placeholder;
-    public string $value;
-    public bool $required;
     /**
      * Create a new component instance.
+     * Menggunakan PHP 8 Constructor Property Promotion untuk kode yang lebih bersih.
      */
-    public function __construct($type = 'text', $name = '', ?string $id = null, ?string $label = null, $placeholder = '', $value = '', $required = false)
-    {
-        $this->type = $type;
-        $this->name = $name;
-        $this->id = $id;
-        $this->label = $label;
-        $this->placeholder = $placeholder;
-        $this->value = $value;
-        $this->required = $required;
+    public function __construct(
+        public string $name,
+        public ?string $label = null,
+        public ?string $id = null,
+        public string $type = 'text',
+        public string $value = '',
+        public string $placeholder = '',
+        public bool $required = false,
+        public bool $disabled = false,
+    ) {
+        // Jika ID tidak diberikan, gunakan 'name' sebagai ID default.
+        // Ini penting untuk menghubungkan <label> dengan <input>.
+        $this->id = $id ?? $this->name;
     }
 
     /**

@@ -10,18 +10,29 @@ use Livewire\Component;
 class Edit extends Component
 {
     public EditUserForm $form;
+    public User $user;
+
+    public function mount()
+    {
+        $id = (int) request()->query('id');
+
+        $this->user = User::findOrFail($id);
+
+        $this->form->name = $this->user->name;
+        $this->form->role = $this->user->roles->first()->id ?? null;
+    }
+
 
     public function render()
     {
         $id = (int) request()->query('id');
 
-        $user = User::findOrFail($id);
         $roles = Role::where('name', '!=', 'superadmin')->get();
 
         return view(
             'pages.admin.user.edit',
             [
-                'user' => $user,
+                'user' => $this->user,
                 'roles' => $roles
             ]
         );
@@ -29,6 +40,6 @@ class Edit extends Component
 
     public function edit()
     {
-        $this->form->update();
+        $this->form->update($this->user);
     }
 }

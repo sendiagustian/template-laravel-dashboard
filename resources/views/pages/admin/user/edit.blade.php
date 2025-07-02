@@ -6,9 +6,6 @@
         $wire.edit().then(() => {
             this.isLoading = false;
             console.log('Edit method executed successfully');
-        }).catch(error => {
-            console.error('Error executing edit method:', error);
-            this.isLoading = false;
         });
     }
 }">
@@ -20,16 +17,14 @@
             <x-core.input-field x-ref="name" wire:model="form.name" type="text" name="name" id="name"
                 label="Full Name" placeholder="Full Name" required="true" class="mb-2" value="{{ $user->name }}" />
 
-            <x-core.input-field x-ref="username" wire:model="form.username" type="text" name="username"
-                id="username" label="Username" placeholder="Username" required="true" class="mb-2"
-                value="{{ $user->username }}" :disabled="true" />
+            <x-core.input-field x-ref="username" type="text" name="username" id="username" label="Username"
+                placeholder="Username" required="true" class="mb-2" value="{{ $user->username }}" disabled="true" />
 
-            <x-core.input-field x-ref="email" wire:model="form.email" type="email" name="email" id="email"
-                label="Email" placeholder="Email" required="true" class="mb-2" value="{{ $user->email }}"
-                :disabled="true" />
+            <x-core.input-field x-ref="email" type="email" name="email" id="email" label="Email"
+                placeholder="Email" required="true" class="mb-2" value="{{ $user->email }}" disabled="true" />
 
-            <x-core.input-select label="Role" name="role" :options="$roles->map(fn($role) => ['value' => $role->id, 'label' => $role->name])->toArray()" model="form.role" required="true"
-                placeholder="Select Role" value="{{ $user->role }}" />
+            <x-core.input-select label="Role" wire:model="form.role" name="role" :options="$roles->map(fn($role) => ['value' => $role->id, 'label' => $role->name])->toArray()"
+                model="form.role" required="true" placeholder="Select Role" value="{{ $user->role }}" />
 
         </div>
 
